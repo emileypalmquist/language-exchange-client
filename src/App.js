@@ -1,15 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import Home from './containers/Home'
+import Welcome from './containers/Welcome'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        We Did It!! WE Are SOOOOOO GOOD!!!
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    user: ''
+  }
+  render() {
+    return (
+      <div className="App">
+        {this.state.user ? <Home /> : <Welcome />}
+      </div>
+    );
+  }
 }
 
 export default App;
