@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 
 class Welcome extends Component {
+
   render() {
     return (
       <div>
         <form>
-          <label for="username">Username</label>
-          <input id="username"></input>
-          <label for="password">Password</label>
+          <label htmlFor="username">Username</label>
+          <input id="username" ></input>
+          <label htmlFor="password">Password</label>
           <input id="password"></input>
-          <input type="submit" value="Login"></input>
+          <Link to="/home"><input type="submit" value="Login"></input></Link>
         </form>
-       <button>Sign Up</button>
+          <Link to="/signup"><button>Sign Up</button></Link>
       </div>
     )
   }
