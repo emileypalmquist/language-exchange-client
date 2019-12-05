@@ -39,7 +39,6 @@ class Welcome extends Component {
   }
 
   handleChange = (e) => {
-    console.log()
     const {id, value} = e.target
     this.setState({
       user : {...this.state.user, [id]: value}

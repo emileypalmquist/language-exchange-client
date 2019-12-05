@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import Fluency from './Fluency'
+import User from './User'
 import { Link } from "react-router-dom"
 
 class UserCard extends Component {
 
   render() {
-    const {user,language} = this.props
+    const {user} = this.props
     return (
-      <div className="card">
+      <div className="card" onClick={this.handleUserCardClick}>
         <h6>{user.first_name + ' ' + user.last_name.split('')[0] + '.'}</h6>
         <h6>{this.props.user.fluencies.map(fluency => 
         <Fluency key={fluency.id} fluency={fluency}/>)}</h6>
