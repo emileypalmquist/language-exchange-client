@@ -17,11 +17,10 @@ class App extends React.Component {
     super()
 
     this.state = {
-      user: null,
       users: [],
       fluencies: [],
       language: '',
-      filterUsers: false
+      filterUsers: false,
       auth: { currentUser: {} }
     }
     this.allUser = []
@@ -84,16 +83,17 @@ class App extends React.Component {
 
 
   render() {
-    const {user,users} = this.state
+    const {auth} = this.state
+    // console.log(auth.currentUser)
     return (
       <div className="App">
         <Router>
           <Switch>
-            <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} handleLangChange={this.handleLangChange} clearFilter={this.clearFilter} {...props}/>)} />
+            <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={auth.currentUser} handleLangChange={this.handleLangChange} clearFilter={this.clearFilter} {...props}/>)} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/appointments" component={Appointments} />
             <Route exact path="/editprofile" component={EditProfile} />
-            <Route exact path="/" render={(props) => <Welcome {...props} handleLogin={this.handleLogin}/>} />
+            <Route exact path="/" render={(props) => <Welcome {...props} handleUserLogin={this.handleUserLogin}/>} />
             <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
             <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
             <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />

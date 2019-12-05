@@ -7,7 +7,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Sidebar />
+        <Sidebar user={this.props.user}/>
         <Users users={this.props.users} handleLangChange={this.props.handleLangChange} clearFilter={this.props.clearFilter}/>
       </div>
     )
