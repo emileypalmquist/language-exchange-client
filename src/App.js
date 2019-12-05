@@ -7,6 +7,7 @@ import Appointments from './components/Appointments'
 import EditProfile from './components/EditProfile'
 import NativeLang from './components/NativeLang';
 import LearnLang from './components/LearnLang';
+import Availability from './components/Availability';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import './App.css';
@@ -89,7 +90,7 @@ class App extends React.Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={auth.currentUser} handleLangChange={this.handleLangChange} clearFilter={this.clearFilter} {...props}/>)} />
+            <Route exact path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={auth.currentUser} handleLangChange={this.handleLangChange} clearFilter={this.clearFilter} {...props}/>)} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/appointments" component={Appointments} />
             <Route exact path="/editprofile" component={EditProfile} />
@@ -97,6 +98,7 @@ class App extends React.Component {
             <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
             <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
             <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />
+            <Route exact path="/availability" render={(props) => <Availability {...props}/>}  />
             </Switch>
         </Router>
       </div>
