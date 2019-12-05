@@ -7,7 +7,7 @@ class Sidebar extends Component {
     return (
       <div className="sidenav">
         <div className='sidenav-a'>
-          <Link to='/profile'> User name</Link>
+          <Link to='/profile'>{this.props.user.first_name}</Link>
           <Link to='/editprofile'><button>Edit Profile</button></Link>
         </div> 
         <Link to='/home'><div className='sidenav-a'>Discover</div></Link>

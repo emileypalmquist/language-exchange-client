@@ -5,7 +5,7 @@ class NativeLang extends Component {
   state = {
     languages: [],
     language_id: 1,
-    level: 'Beginner'
+    level: 'Advanced'
   }
 
   componentDidMount () {
@@ -16,7 +16,6 @@ class NativeLang extends Component {
 
   handleSubmit = (e) => {
       e.preventDefault()
-      console.log(this.state)
       const userToken = localStorage.getItem("token")
 
       const {level, language_id} = this.state
@@ -33,8 +32,8 @@ class NativeLang extends Component {
           language_id: language_id
         })
       })
-        .then(resp=> resp.json())
-        .then(data => console.log(data) );
+        // .then(resp=> resp.json())
+        // .then(data => console.log(data) );
         this.props.history.push('/home')
   }
 
