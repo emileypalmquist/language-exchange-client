@@ -32,7 +32,9 @@ class NativeLang extends Component {
           language_id: language_id
         })
       })
-        this.props.history.push('/home')
+
+        this.props.history.push('/availability')
+
   }
 
   handleLangChange = (e) => {

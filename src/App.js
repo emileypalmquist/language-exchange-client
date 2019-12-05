@@ -7,6 +7,7 @@ import Appointments from './components/Appointments'
 import EditProfile from './components/EditProfile'
 import NativeLang from './components/NativeLang';
 import LearnLang from './components/LearnLang';
+import Availability from './components/Availability';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import './App.css';
@@ -109,9 +110,9 @@ class App extends React.Component {
 
 
   render() {
+
     const {user} = this.state
       return (
-        
         <div className="App">
           <Router>
             <Switch>
@@ -119,6 +120,7 @@ class App extends React.Component {
               <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
               <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
               <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />
+              <Route exact path="/availability" render={(props) => <Availability {...props}/>}  />
               { user ? 
               <>
                 <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
