@@ -6,7 +6,7 @@ class Filter extends Component {
     return (
       <div className="filter" >
         <h6>I want to learn</h6>
-        <select onChange={this.props.handleLangChange}>{this.props.languages.map(lang => <option key={lang.id}>{lang.name}</option>)}
+        <select onChange={this.props.handleLangChange}>{this.props.languages.map(lang => <option>{lang}</option>)}
         </select>
         <button onClick={this.props.clearFilter}>Clear Filter</button> 
       </div>

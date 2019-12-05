@@ -10,29 +10,40 @@ class Users extends Component {
 
 
   handleFilterClick = () => {
+    this.getLanguagesFromUsers()
     this.setState({
       filter: !this.state.filter
     })
   }
 
-  
-
-  componentDidMount() {
-    fetch('http://localhost:3000/languages')
-      .then(resp => resp.json())
-      .then(data => this.setState({languages: data}))
+  getLanguagesFromUsers = () => {
+    let allLangs = [];
+    this.props.users.map( user => {
+      return user.languages.forEach(lang => {
+        allLangs.push(lang.name)
+      })
+    })
+    
+    let unique = allLangs.filter((lang, i, a) => a.indexOf(lang) === i)
+    this.setState({
+      languages: unique
+    })
   }
 
   render() {
+    
     return (
       <div>
-        <div className="filter" >
+      <div className="filter" >
           <h3 onClick={this.handleFilterClick}>Find People</h3>
           {this.state.filter && <Filter languages={this.state.languages} handleChange={this.handleFilterClick} handleLangChange={this.props.handleLangChange} clearFilter={this.props.clearFilter}/> }
           </div>
-        <div className="user-cards">
-        {this.props.users.map(user => <UserCard key={user.id} user={user} language={this.state.language}/>)}
-        </div>
+        
+          
+          <div className="user-cards">
+          {this.props.users.map(user => <UserCard key={user.id} user={user} />)}
+          </div>
+        
       </div>
     )
   }

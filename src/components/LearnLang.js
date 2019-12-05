@@ -33,8 +33,6 @@ class LearnLang extends Component {
           language_id: language_id
         })
       })
-        .then(resp=> resp.json())
-        .then(data => console.log(data) );
         this.props.history.push('/native-languages')
   }
 

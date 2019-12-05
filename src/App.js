@@ -17,6 +17,7 @@ class App extends React.Component {
     super()
 
     this.state = {
+      user: null,
       users: [],
       fluencies: [],
       language: '',
@@ -26,6 +27,15 @@ class App extends React.Component {
     this.allUser = []
   }
 
+  
+  handleSignOut = () => {
+    localStorage.clear();
+    this.setState({
+      user: null
+    })
+  }
+  
+
   componentDidMount() {
     fetch('http://localhost:3000/users')
       .then(resp => resp.json())
@@ -34,8 +44,20 @@ class App extends React.Component {
         this.setState({
         users: users
       })
-    }
-    )
+    })
+
+    fetch('http://localhost:3000/reauth', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${localStorage.getItem('token')}`
+      }
+    })
+      .then(resp => resp.json())
+      .then(user => this.setState({
+        user: user.user
+      }))
   }
 
   handleLangChange = (e) => {
@@ -75,33 +97,39 @@ class App extends React.Component {
   }
 
   handleUserLogin = user => {
-    const currentUser = { currentUser: user.user };
+  
+    const currentUser = {currentUser: user.user} ;
     localStorage.setItem('token', user.jwt);
-
-    this.setState({ auth: currentUser });
+    
+    this.setState({ 
+      auth: currentUser,
+      user: user.user
+    });
   }
 
 
   render() {
-    const {auth} = this.state
-    // console.log(auth.currentUser)
-    return (
-      <div className="App">
-        <Router>
-          <Switch>
-            <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={auth.currentUser} handleLangChange={this.handleLangChange} clearFilter={this.clearFilter} {...props}/>)} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/appointments" component={Appointments} />
-            <Route exact path="/editprofile" component={EditProfile} />
-            <Route exact path="/" render={(props) => <Welcome {...props} handleUserLogin={this.handleUserLogin}/>} />
-            <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
-            <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
-            <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />
+    const {user} = this.state
+      return (
+        
+        <div className="App">
+          <Router>
+            <Switch>
+              <Route exact path="/" render={(props) => <Welcome {...props} handleUserLogin={this.handleUserLogin}/>} />
+              <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
+              <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
+              <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />
+              { user ? 
+              <>
+                <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
+                <Route exact path="/profile" render={() => <Profile user={user} handleSignOut={this.handleSignOut}/>} />
+                <Route exact path="/appointments" component={Appointments} />
+                <Route exact path="/editprofile" component={EditProfile} />
+              </> : 
+              <p>Loading</p> }
             </Switch>
-        </Router>
-      </div>
-
-    );
+          </Router>
+        </div>) 
   }
 }
  
