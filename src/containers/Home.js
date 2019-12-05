@@ -3,11 +3,12 @@ import Sidebar from './Sidebar';
 import Users from './Users'
 
 class Home extends Component {
+
   render() {
     return (
       <div>
         <Sidebar />
-        <Users />
+        <Users users={this.props.users} handleLangChange={this.props.handleLangChange} clearFilter={this.props.clearFilter}/>
       </div>
     )
   }
