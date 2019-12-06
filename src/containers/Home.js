@@ -4,6 +4,12 @@ import Users from './Users'
 
 class Home extends Component {
 
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.reAuth()
+    }
+  }
+
   render() {
     return (
       <div>

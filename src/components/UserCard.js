@@ -9,6 +9,7 @@ class UserCard extends Component {
     const {user} = this.props
   
     return (
+
      
         <div className="card" onClick={this.handleUserCardClick}>
           <h6>{user.first_name + ' ' + user.last_name.split('')[0] + '.'}</h6>
@@ -16,6 +17,7 @@ class UserCard extends Component {
           <Fluency key={fluency.id} fluency={fluency}/>)}</h6>
         </div>
      
+
     )
   }
 }
