@@ -14,7 +14,7 @@ class Home extends Component {
     return (
       <div>
         <Sidebar user={this.props.user} handleSignOut={this.props.handleSignOut}/>
-        <Users users={this.props.users} handleLangChange={this.props.handleLangChange} clearFilter={this.props.clearFilter}/>
+        <Users users={this.props.users} handleLangChange={this.props.handleLangChange} clearFilter={this.props.clearFilter} updateUser={this.props.updateUser}/>
       </div>
     )
   }
