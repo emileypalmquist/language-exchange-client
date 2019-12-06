@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { stat } from 'fs'
 
 class Availability extends Component {
 
@@ -49,7 +48,6 @@ class Availability extends Component {
   render() {
 
     const {monday, tuesday, wednesday, thursday, friday, saturday , sunday, start_time, end_time} = this.state
-    console.log("Current state:", this.state);
     return (
       
       <div>

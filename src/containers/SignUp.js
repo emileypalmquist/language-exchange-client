@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import NativeLang from '../components/NativeLang';
-import { Link } from 'react-router-dom'
+
 
 class Signup extends Component {
 
@@ -51,7 +50,7 @@ class Signup extends Component {
 
 
   render() {
-    const {firstName, lastName, birthday, password, username} = this.state
+    const {firstName, lastName, password, username} = this.state
     return (
       <div>
           <form onSubmit={this.handleFirstNext}>

@@ -3,6 +3,7 @@ import Home from './containers/Home'
 import Welcome from './containers/Welcome'
 import Signup from './containers/SignUp';
 import Profile from './components/Profile'
+// import User from './components/User'
 import Appointments from './components/Appointments'
 import EditProfile from './components/EditProfile'
 import NativeLang from './components/NativeLang';
@@ -70,10 +71,9 @@ class App extends React.Component {
   }
 
   filterUsers = (language) => {
-  
     const newArray = this.allUser.filter( user => {
-      const newArray = user.languages.map(lang => lang.name)
-      if (newArray.includes(language)){
+      const newArray1 = user.languages.map(lang => lang.name)
+      if (newArray1.includes(language)){
         return user
       }
     })
@@ -125,8 +125,9 @@ class App extends React.Component {
               <>
                 <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
                 <Route exact path="/profile" render={() => <Profile user={user} handleSignOut={this.handleSignOut}/>} />
-                <Route exact path="/appointments" component={Appointments} />
+                <Route exact path="/appointments" render={() => <Appointments user={user} handleSignOut={this.handleSignOut}/>} />
                 <Route exact path="/editprofile" component={EditProfile} />
+                {/* <Route exact path="`/user/${slug}`" component={User} /> */}
               </> : 
               <p>Loading</p> }
             </Switch>
