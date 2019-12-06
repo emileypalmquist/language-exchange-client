@@ -41,15 +41,19 @@ class Availability extends Component {
         body: JSON.stringify({ 
           monday, tuesday, wednesday, thursday, friday, saturday , sunday, start_time, end_time
         })
+      }).then(result => {
+        this.props.history.push('/home');
       })
-      this.props.history.push('/home')
+      .then(() => {
+        this.props.reAuth();
+      })
    }
 
 
   render() {
 
     const {monday, tuesday, wednesday, thursday, friday, saturday , sunday, start_time, end_time} = this.state
-    console.log("Current state:", this.state);
+    
     return (
       
       <div>
