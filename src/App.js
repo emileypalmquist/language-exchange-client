@@ -39,14 +39,17 @@ class App extends React.Component {
 
   componentDidMount() {
     fetch('http://localhost:3000/users')
-      .then(resp => resp.json())
-      .then(users => {
-        this.allUser = users
-        this.setState({
-        users: users
+    .then(resp => resp.json())
+    .then(users => {
+      this.allUser = users;
+      this.setState({
+        users
       })
     })
+    this.reAuth();
+  }
 
+  reAuth = () => {
     fetch('http://localhost:3000/reauth', {
       method: 'GET',
       headers: {
@@ -120,10 +123,10 @@ class App extends React.Component {
               <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
               <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
               <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />
-              <Route exact path="/availability" render={(props) => <Availability {...props}/>}  />
+              <Route exact path="/availability"  render={(props) => <Availability reAuth={this.reAuth} {...props}/>}  />
               { user ? 
               <>
-                <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
+                <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} reAuth={this.reAuth} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
                 <Route exact path="/profile" render={() => <Profile user={user} handleSignOut={this.handleSignOut}/>} />
                 <Route exact path="/appointments" component={Appointments} />
                 <Route exact path="/editprofile" component={EditProfile} />
