@@ -3,16 +3,16 @@ import React, {Component} from 'react'
 class NativeLang extends Component {
 
   state = {
-    languages: [],
+    languages: this.props.languages,
     language_id: 1,
     level: 'Advanced'
   }
 
-  componentDidMount () {
-    fetch('http://localhost:3000/languages')
-    .then(resp => resp.json())
-    .then(data => this.setState({languages: data}))
-  }
+  // componentDidMount () {
+  //   fetch('http://localhost:3000/languages')
+  //   .then(resp => resp.json())
+  //   .then(data => this.setState({languages: data}))
+  // }
 
   handleSubmit = (e) => {
       e.preventDefault()
