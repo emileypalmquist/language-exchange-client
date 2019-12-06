@@ -16,7 +16,6 @@ class LearnLang extends Component {
 
   handleSubmit = (e) => {
       e.preventDefault()
-      console.log(this.state)
       const userToken = localStorage.getItem("token")
 
       const {level, language_id} = this.state

@@ -3,7 +3,6 @@ import Home from './containers/Home'
 import Welcome from './containers/Welcome'
 import Signup from './containers/SignUp';
 import Profile from './components/Profile'
-// import User from './components/User'
 import Appointments from './components/Appointments'
 import EditProfile from './components/EditProfile'
 import NativeLang from './components/NativeLang';
@@ -22,6 +21,7 @@ class App extends React.Component {
       user: null,
       users: [],
       fluencies: [],
+      languages: [],
       language: '',
       filterUsers: false,
       auth: { currentUser: {} }
@@ -31,6 +31,18 @@ class App extends React.Component {
 
   
   handleSignOut = () => {
+    localStorage.clear();
+    this.setState({
+      user: null
+    })
+  }
+
+  handleDelete = () => {
+    fetch(`http://localhost:3000/users/${this.state.user.id}`, {
+      method: "DELETE"
+    })
+    this.props.history.push('/')
+
     localStorage.clear();
     this.setState({
       user: null
@@ -48,6 +60,10 @@ class App extends React.Component {
       })
     })
     this.reAuth();
+
+    fetch('http://localhost:3000/languages')
+    .then(resp => resp.json())
+    .then(data => this.setState({languages: data}))
   }
 
   reAuth = () => {
@@ -114,23 +130,22 @@ class App extends React.Component {
 
   render() {
 
-    const {user} = this.state
+    const {user, languages} = this.state
       return (
         <div className="App">
           <Router>
             <Switch>
               <Route exact path="/" render={(props) => <Welcome {...props} handleUserLogin={this.handleUserLogin}/>} />
               <Route exact path="/signup" render={(props) => <Signup {...props}/>}/>
-              <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} />
+              <Route exact path="/native-languages" render={(props) => <NativeLang {...props}/>} languages={languages} />
               <Route exact path="/learn-languages" render={(props) => <LearnLang {...props}/>}  />
               <Route exact path="/availability"  render={(props) => <Availability reAuth={this.reAuth} {...props}/>}  />
               { user ? 
-              <>
+              <> 
                 <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} reAuth={this.reAuth} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
                 <Route exact path="/profile" render={() => <Profile user={user} handleSignOut={this.handleSignOut}/>} />
                 <Route exact path="/appointments" render={() => <Appointments user={user} handleSignOut={this.handleSignOut}/>} />
-                <Route exact path="/editprofile" component={EditProfile} />
-                {/* <Route exact path="`/user/${slug}`" component={User} /> */}
+                <Route exact path="/editprofile" render={() => <EditProfile user={user} languages={languages} handleSignOut={this.handleSignOut} handleDelete={this.handleDelete} reAuth={this.reAuth}/> } />
               </> : 
               <p>Loading</p> }
             </Switch>
