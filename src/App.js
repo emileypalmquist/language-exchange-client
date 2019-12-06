@@ -111,9 +111,12 @@ class App extends React.Component {
     });
   }
 
+  
+  updateUser = (appt) => {
+    this.state.user.teacher_appointment.push(appt)
+  }
 
   render() {
-
     const {user} = this.state
       return (
         <div className="App">
@@ -126,11 +129,10 @@ class App extends React.Component {
               <Route exact path="/availability"  render={(props) => <Availability reAuth={this.reAuth} {...props}/>}  />
               { user ? 
               <>
-                <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} reAuth={this.reAuth} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props}/>)} />
+                <Route  path="/home" render={(props)=> (<Home users={this.checkUserFilter()} user={user} reAuth={this.reAuth} handleLangChange={this.handleLangChange} handleSignOut={this.handleSignOut} clearFilter={this.clearFilter} {...props} updateUser={this.updateUser}/>)} />
                 <Route exact path="/profile" render={() => <Profile user={user} handleSignOut={this.handleSignOut}/>} />
-                <Route exact path="/appointments" render={() => <Appointments user={user} handleSignOut={this.handleSignOut}/>} />
+                <Route exact path="/appointments" render={() => <Appointments user={user} handleSignOut={this.handleSignOut} users={this.state.users}/>} />
                 <Route exact path="/editprofile" component={EditProfile} />
-                {/* <Route exact path="`/user/${slug}`" component={User} /> */}
               </> : 
               <p>Loading</p> }
             </Switch>

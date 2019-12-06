@@ -41,7 +41,7 @@ class Users extends Component {
         
           
           <div className="user-cards">
-          {this.props.users.map(user => <UserCard key={user.id} user={user} />)}
+          {this.props.users.map(user => <UserCard key={user.id} user={user} updateUser={this.props.updateUser} />)}
           </div>
         
       </div>
